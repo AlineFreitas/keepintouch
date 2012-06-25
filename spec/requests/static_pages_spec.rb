@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "StaticPages" do
-  #base_title = "Keepintouch.net.br - "
+  let(:base_title) { "Keepintouch.net.br -"}
 
   describe "Home page" do
     it "should have the content 'Seja Bem-Vindo'" do
@@ -9,10 +9,20 @@ describe "StaticPages" do
       page.should have_content('Seja Bem-Vindo')
     end
 
-    it "should have the title 'Home'" do
+   it "should have the h1 'Seja Bem-Vindo'" do
+      visit '/static_pages/home'
+      page.should have_selector('h1', :text => 'Seja Bem-Vindo')
+    end
+
+    it "should have the base title" do
       visit '/static_pages/home'
       page.should have_selector('title',
-                        :text => "Keepintouch.net.br - Home")
+                        :text => "Keepintouch.net.br")
+    end
+
+    it "should not have a custom page title" do
+      visit '/static_pages/home'
+      page.should_not have_selector('title', :text => '- Home')
     end
   end
 
@@ -25,7 +35,7 @@ describe "StaticPages" do
     it "should have the title 'About'" do
       visit '/static_pages/about'
       page.should have_selector('title',
-                        :text => "Keepintouch.net.br - About")
+                        :text => "#{base_title} About")
     end
   end
 
@@ -38,7 +48,7 @@ describe "StaticPages" do
     it "should have the title 'FAQ'" do
       visit '/static_pages/help'
       page.should have_selector('title',
-                        :text => "Keepintouch.net.br - FAQ")
+                        :text => "#{base_title} FAQ")
     end
   end
 end

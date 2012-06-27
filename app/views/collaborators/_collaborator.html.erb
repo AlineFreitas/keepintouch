@@ -1,0 +1,8 @@
+<li>
+  <%= gravatar_for collaborator, size: 52 %>
+  <%= link_to collaborator.name, collaborator %>
+  <% if current_user.admin? && !current_user?(collaborator) %>
+    | <%= link_to "delete", collaborator, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+</li>

@@ -1,0 +1,10 @@
+<% provide(:title, 'Lista de Colaboradores') %>
+<h1>Todos Colaboradores</h1>
+
+<%= will_paginate %>
+
+<ul class="collaborators">
+  <%= render @collaborators %>
+</ul>
+
+<%= will_paginate %>

@@ -1,3 +1,4 @@
+#coding: utf-8
 require 'spec_helper'
 
 describe "CollaboratorPages" do
@@ -5,10 +6,57 @@ describe "CollaboratorPages" do
 
   describe "profile page" do
     let(:collaborator) { FactoryGirl.create(:collaborator) }
+
     before { visit collaborator_path(collaborator) }
 
     it { should have_selector('h1',    text: collaborator.name) }
     it { should have_selector('title', text: collaborator.name) }
+  end
+
+  describe "index" do
+    let(:collaborator) { FactoryGirl.create(:collaborator) }
+
+    before(:all) { 30.times { FactoryGirl.create(:collaborator) } }
+    after(:all)  { Collaborator.delete_all }
+
+    before(:each) do
+      sign_in collaborator
+      visit collaborators_path
+    end
+
+    it { should have_selector('title', text: 'Lista de Colaboradores') }
+    it { should have_selector('h1',    text: 'Todos Colaboradores') }
+
+    describe "pagination" do
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each collaborator" do
+        Collaborator.paginate(page: 1).each do |collaborator|
+          page.should have_selector('li', text: collaborator.name)
+        end
+      end
+    end
+
+    describe "delete links" do
+
+      it { should_not have_link('delete') }
+
+      describe "as an admin collaborator" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        before do
+          sign_in admin
+          visit collaborators_path
+        end
+
+        it { should have_link('delete', href: collaborator_path(Collaborator.first)) }
+
+        it "should be able to delete another collaborator" do
+          expect { click_link('delete') }.to change(Collaborator, :count).by(-1)
+        end
+        it { should_not have_link('delete', href: collaborator_path(admin)) }
+      end
+    end
   end
 
   describe "new collaborator page" do
@@ -20,7 +68,7 @@ describe "CollaboratorPages" do
     it { should have_selector('title', text: 'Cadastrar Colaborador') }
 
     describe "with invalid information" do
-      it "should not create a user" do
+      it "should not create a collaborator" do
         expect { click_button submit }.not_to change(Collaborator, :count)
       end
     end
@@ -28,7 +76,7 @@ describe "CollaboratorPages" do
     describe "with valid information" do
       before do
         fill_in "Name",         with: "Example User"
-        fill_in "Email",        with: "user@example.com"
+        fill_in "Email",        with: "collaborator@example.com"
         fill_in "Password",     with: "foobar"
         fill_in "Confirmation", with: "foobar"
       end
@@ -36,6 +84,45 @@ describe "CollaboratorPages" do
       it "should create a collaborator" do
         expect { click_button submit }.to change(Collaborator, :count).by(1)
       end
+    end
+  end
+
+  describe "edit" do
+    let(:collaborator) { FactoryGirl.create(:collaborator) }
+
+    before do
+      sign_in collaborator
+      visit edit_collaborator_path(collaborator)
+    end
+
+    describe "page" do
+      it { should have_selector('h1',    text: "Update your profile") }
+      it { should have_selector('title', text: "Editar dados Colaborador") }
+      it { should have_link('change', href: 'http://gravatar.com/emails') }
+    end
+
+    describe "with invalid information" do
+      before { click_button "Salvar Mudanças" }
+
+      it { should have_content('error') }
+    end
+
+    describe "with valid information" do
+      let(:new_name)  { "New Name" }
+      let(:new_email) { "new@example.com" }
+      before do
+        fill_in "Name",             with: new_name
+        fill_in "Email",            with: new_email
+        fill_in "Password",         with: collaborator.password
+        fill_in "Confirm Password", with: collaborator.password
+        click_button "Salvar Mudanças"
+      end
+
+      it { should have_selector('title', text: new_name) }
+      it { should have_selector('div.alert.alert-success') }
+      it { should have_link('Sign out', href: signout_path) }
+      specify { collaborator.reload.name.should  == new_name }
+      specify { collaborator.reload.email.should == new_email }
     end
   end
 end

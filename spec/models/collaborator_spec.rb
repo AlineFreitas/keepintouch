@@ -2,11 +2,13 @@
 #
 # Table name: collaborators
 #
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id              :integer         not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
 #
 
 require 'spec_helper'
@@ -27,9 +29,18 @@ describe Collaborator do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
+
+  it { should_not be_admin }
+
+  describe "with admin attribute set to 'true'" do
+    before { @collaborator.toggle!(:admin) }
+
+    it { should be_admin }
+  end
 
   describe "when name is'nt present" do
     before { @collaborator.name = "" }

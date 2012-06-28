@@ -84,6 +84,19 @@ describe "AuthenticationPages" do
           it { should have_selector('title', text: 'Sign in') }
         end
       end
+      
+      describe "in the Partners controller" do
+
+        describe "submitting to the create action" do
+          before { post partners_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete partner_path(FactoryGirl.create(:partner)) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end
     end
 
 

@@ -16,5 +16,11 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+    
+    collaborators = Collaborator.all(limit: 6)
+    50.times do
+      name = Faker::Lorem.sentence(5)
+      collaborators.each { |collaborator| collaborator.partners.create!(name: name) }
+    end
   end
 end

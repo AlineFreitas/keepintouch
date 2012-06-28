@@ -8,4 +8,13 @@
       </h1>
     </section>
   </aside>
+  <div class="span8">
+    <% if @collaborator.partners.any? %>
+      <h3>Colaboradores (<%= @collaborator.partners.count %>)</h3>
+      <ol class="partners">
+        <%= render @partners %>
+      </ol>
+      <%= will_paginate @partners %>
+    <% end %>
+  </div>
 </div>

@@ -1,0 +1,8 @@
+<li>
+  <span class="name"><%= partner.name %></span>
+  <% if current_user?(partner.collaborator) %>
+    <%= link_to "delete", partner, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: partner.collaborator.name %>
+  <% end %>
+</li>

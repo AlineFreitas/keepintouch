@@ -32,6 +32,23 @@ describe "StaticPages" do
     it_should_behave_like "all static pages"
     it { should_not have_selector('title',
                                   :text => 'Home') }
+
+    describe "for signed-in collaborators" do
+      let(:collaborator) { FactoryGirl.create(:collaborator) }
+
+      before do
+        FactoryGirl.create(:partner, collaborator: collaborator, name: "Lorem ipsum")
+        FactoryGirl.create(:partner, collaborator: collaborator, name: "Dolor sit amet")
+        sign_in collaborator
+        visit root_path
+      end
+
+      it "should render the collaborator's feed" do
+        collaborator.feed.each do |item|
+          page.should have_selector("li##{item.id}", text: item.name)
+        end
+      end
+    end
   end
 
   describe "About page" do

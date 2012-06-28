@@ -6,11 +6,19 @@ describe "CollaboratorPages" do
 
   describe "profile page" do
     let(:collaborator) { FactoryGirl.create(:collaborator) }
+    let!(:partner1) { FactoryGirl.create(:partner, collaborator: collaborator, name: "Foo") }
+    let!(:partner2) { FactoryGirl.create(:partner, collaborator: collaborator, name: "Bar") }
 
     before { visit collaborator_path(collaborator) }
 
     it { should have_selector('h1',    text: collaborator.name) }
     it { should have_selector('title', text: collaborator.name) }
+    
+    describe "partners" do
+      it { should have_content(partner1.name) }
+      it { should have_content(partner2.name) }
+      it { should have_content(collaborator.partners.count) }
+    end
   end
 
   describe "index" do

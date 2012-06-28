@@ -9,10 +9,14 @@
 #  updated_at      :datetime        not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
+#  admin           :boolean         default(FALSE)
 #
 
 class Collaborator < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
+
+  has_many :partners, dependent: :destroy
+
   has_secure_password
 
   before_save { |collaborator| collaborator.email = email.downcase }
@@ -26,6 +30,13 @@ class Collaborator < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+
+
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Partner.where("collaborator_id = ?", id)
+  end
+
 
   private
 

@@ -9,4 +9,9 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :partner do
+    name "Lorem ipsum"
+    collaborator
+  end
 end

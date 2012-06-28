@@ -1,3 +1,4 @@
+#coding:utf-8
 # == Schema Information
 #
 # Table name: collaborators
@@ -9,6 +10,7 @@
 #  updated_at      :datetime        not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
+#  admin           :boolean         default(FALSE)
 #
 
 require 'spec_helper'
@@ -30,6 +32,8 @@ describe Collaborator do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:admin) }
+  it { should respond_to(:partners) }
+  it { should respond_to(:feed) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
@@ -128,5 +132,39 @@ describe Collaborator do
   describe "remember token" do
     before { @collaborator.save }
     its(:remember_token) { should_not be_blank }
+  end
+  
+  describe "partner associations" do
+
+    before { @collaborator.save }
+
+    let!(:first_partner) do 
+      FactoryGirl.create(:partner, collaborator: @collaborator, name: 'Alice')
+    end
+    let!(:last_partner) do
+      FactoryGirl.create(:partner, collaborator: @collaborator, name: 'Zélia')
+    end
+
+    it "should have the right partners in the right order" do
+      @collaborator.partners.should == [first_partner, last_partner]
+    end
+    
+    it "should destroy associated partners" do
+      partners = @collaborator.partners
+      @collaborator.destroy
+      partners.each do |partner|
+        Partner.find_by_id(partner.id).should be_nil
+      end
+    end
+
+    describe "status" do
+      let(:someonelse_partner) do
+        FactoryGirl.create(:partner, collaborator: FactoryGirl.create(:collaborator))
+      end
+
+      its(:feed) { should include(first_partner) }
+      its(:feed) { should include(last_partner) }
+      its(:feed) { should_not include(someonelse_partner) }
+    end
   end
 end

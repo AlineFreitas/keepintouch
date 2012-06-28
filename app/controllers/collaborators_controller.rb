@@ -9,6 +9,7 @@ class CollaboratorsController < ApplicationController
 
   def show
     @collaborator = Collaborator.find(params[:id])
+    @partners = @collaborator.partners.paginate(page: params[:page])
   end
 
   def new
@@ -47,13 +48,6 @@ class CollaboratorsController < ApplicationController
   end
 
   private
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_path, notice: "Please sign in."
-      end
-    end
-
     def correct_user
       @collaborator = Collaborator.find(params[:id])
       redirect_to(root_path) unless current_user?(@collaborator)

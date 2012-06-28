@@ -177,7 +177,7 @@ DEPENDENCIES
   bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)
   coffee-rails (~> 3.2.1)
-  database_cleaner
+  database_cleaner (= 0.8.0)
   factory_girl_rails (= 1.4.0)
   faker (= 1.0.1)
   guard-rspec (= 0.5.5)

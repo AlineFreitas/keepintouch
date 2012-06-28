@@ -1,10 +1,28 @@
-<div class="center hero-unit">
-  <h1>Seja Bem-Vindo</h1>
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/collaborator_info' %>
+      </section>
+      <section>
+        <%= render 'shared/partner_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Atividades Recentes</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+  
+<% else %>
+  <div class="center hero-unit">
+    <h1>Seja Bem-Vindo</h1>
 
-  <h2>
-    Esta &eacute; a p&aacute;gina inicial para
-    <%= link_to 'Keepintouch.net.br', root_path %></a>.
-  </h2>
+    <h2>
+      Esta &eacute; a p&aacute;gina inicial para
+      <%= link_to 'Keepintouch.net.br', root_path %></a>.
+    </h2>
 
-  <%= link_to "Log in now!", '#', class: "btn btn-large btn-primary" %>
-</div>
+    <%= link_to "Log in now!", signin_path, class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

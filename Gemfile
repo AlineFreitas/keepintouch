@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '1.9.3'
 gem 'rails', '3.2.5'
+gem "heroku", "2.28.7"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -31,7 +32,9 @@ group :test do
   gem 'database_cleaner', '0.8.0'
 end
 
-
+group :production do
+  gem 'pg', '0.14.0'
+end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

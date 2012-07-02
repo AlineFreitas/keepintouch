@@ -1,7 +1,7 @@
 Keepintouch::Application.routes.draw do
   resources :collaborators
   resources :sessions, only: [:new, :create, :destroy]
-  resources :partners, only: [:create, :destroy]
+  resources :partners
 
   root :to => "static_pages#home"
 

@@ -3,14 +3,49 @@
 
 <div class="row">
   <div class="span6 offset3">
+      <p><%= gravatar_for @collaborator %>
+      <a href="http://gravatar.com/emails">alterar gravatar</a>
+      </p>
+      <br/><br/><br/>
+
     <%= form_for(@collaborator) do |f| %>
       <%= render 'shared/error_messages', object: f.object  %>
 
-      <%= f.label :name %>
+      <%= f.label "Nome" %>
       <%= f.text_field :name %>
 
-      <%= f.label :email %>
+      <%= f.label "E-mail" %>
       <%= f.text_field :email %>
+
+      <%= f.label "Rua/Avenida" %>
+      <%= f.text_field :street %>
+      
+      <%= f.label "Número" %>
+      <%= f.text_field :number %>
+      
+      <%= f.label "Bairro" %>
+      <%= f.text_field :hood %>
+      
+      <%= f.label "CEP" %>
+      <%= f.text_field :cep %>
+      
+      <%= f.label "gênero" %>
+      <%= f.text_field :gender %>
+      
+      <%= f.label "Data de nascimento" %>
+      <%= date_select :partner, :birth_date, :include_blank => true,
+                      :start_year => Date.current.year-116,
+                      :end_year => 1995 %>
+      
+      <%= f.label 'Telefone 1' %>
+      <%= f.text_field :fone1 %>
+      
+      <%= f.label 'Telefone 2' %>
+      <%= f.text_field :fone2 %>
+
+      <br/><br/>
+      <h3>Verificação de segurança</h3>
+      <hr/>
 
       <%= f.label :password %>
       <%= f.password_field :password %>
@@ -18,11 +53,8 @@
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.submit "Salvar Mudanças", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Salvar", class: "btn btn-large btn-primary" %>
     <% end %>
-
-    <%= gravatar_for @collaborator %>
-    <a href="http://gravatar.com/emails">change</a>
   </div>
 </div>
 

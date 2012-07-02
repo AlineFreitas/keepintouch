@@ -6,16 +6,42 @@
     <%= form_for(@collaborator) do |f| %>
       <%= render 'shared/error_messages', object: f.object  %>
 
-      <%= f.label :name %>
+      <%= f.label "Nome" %>
       <%= f.text_field :name %>
 
-      <%= f.label :email %>
+      <%= f.label "E-mail" %>
       <%= f.text_field :email %>
 
-      <%= f.label :password %>
+      <%= f.label "Rua/Avenida" %>
+      <%= f.text_field :street %>
+      
+      <%= f.label "Número" %>
+      <%= f.text_field :number %>
+      
+      <%= f.label "Bairro" %>
+      <%= f.text_field :hood %>
+      
+      <%= f.label "CEP" %>
+      <%= f.text_field :cep %>
+      
+      <%= f.label "gênero" %>
+      <%= f.text_field :gender %>
+      
+      <%= f.label "Data de nascimento" %>
+      <%= date_select :partner, :birth_date, :include_blank => true,
+                      :start_year => Date.current.year-116,
+                      :end_year => 1995 %>
+      
+      <%= f.label 'Telefone 1' %>
+      <%= f.text_field :fone1 %>
+      
+      <%= f.label 'Telefone 2' %>
+      <%= f.text_field :fone2 %>
+
+      <%= f.label "Senha" %>
       <%= f.password_field :password %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, "Confirmação" %>
       <%= f.password_field :password_confirmation %>
 
       <%= f.submit "Cadastrar", class: "btn btn-large btn-primary" %>

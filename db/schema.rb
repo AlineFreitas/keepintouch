@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120628001238) do
+ActiveRecord::Schema.define(:version => 20120701213529) do
 
   create_table "collaborators", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(:version => 20120628001238) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
+    t.string   "street"
+    t.string   "number"
+    t.string   "hood"
+    t.string   "cep"
+    t.string   "gender"
+    t.date     "brithdate"
+    t.string   "fone1"
+    t.string   "fone2"
   end
 
   add_index "collaborators", ["email"], :name => "index_collaborators_on_email", :unique => true
@@ -32,8 +40,21 @@ ActiveRecord::Schema.define(:version => 20120628001238) do
     t.integer  "collaborator_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.date     "brith_date"
+    t.string   "email"
+    t.string   "street"
+    t.string   "number"
+    t.string   "hood"
+    t.string   "cep"
+    t.string   "gender"
+    t.date     "birth_date"
+    t.string   "fone1"
+    t.string   "fone2"
   end
 
+  add_index "partners", ["cep"], :name => "index_partners_on_cep"
   add_index "partners", ["collaborator_id"], :name => "index_partners_on_collaborator_id"
+  add_index "partners", ["gender"], :name => "index_partners_on_gender"
+  add_index "partners", ["hood"], :name => "index_partners_on_hood"
 
 end

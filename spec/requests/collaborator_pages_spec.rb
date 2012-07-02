@@ -9,7 +9,11 @@ describe "CollaboratorPages" do
     let!(:partner1) { FactoryGirl.create(:partner, collaborator: collaborator, name: "Foo") }
     let!(:partner2) { FactoryGirl.create(:partner, collaborator: collaborator, name: "Bar") }
 
-    before { visit collaborator_path(collaborator) }
+    before do
+      sign_in collaborator
+      visit collaborator_path(collaborator)
+    end
+
 
     it { should have_selector('h1',    text: collaborator.name) }
     it { should have_selector('title', text: collaborator.name) }
@@ -23,25 +27,37 @@ describe "CollaboratorPages" do
 
   describe "index" do
     let(:collaborator) { FactoryGirl.create(:collaborator) }
+    let(:admin) { FactoryGirl.create(:admin) }
 
     before(:all) { 30.times { FactoryGirl.create(:collaborator) } }
     after(:all)  { Collaborator.delete_all }
 
-    before(:each) do
-      sign_in collaborator
-      visit collaborators_path
+    describe "as a non-admin user" do
+      before(:each) do
+        sign_in collaborator
+        visit collaborators_path
+      end
+
+      it { should_not have_selector('title', text: 'Lista de Colaboradores') }
+      it { should_not have_selector('h1',    text: 'Todos Colaboradores') }
+      it { should have_selector('h1'), text: 'Atividades Recentes'}
+      it { should have_selector('title'), text: 'Keepintouch.net.br'}
     end
 
-    it { should have_selector('title', text: 'Lista de Colaboradores') }
-    it { should have_selector('h1',    text: 'Todos Colaboradores') }
+    describe "as an admin user" do
+      before do
+        sign_in admin
+        visit collaborators_path
+      end
 
-    describe "pagination" do
+      describe "pagination" do
 
-      it { should have_selector('div.pagination') }
+        it { should have_selector('div.pagination') }
 
-      it "should list each collaborator" do
-        Collaborator.paginate(page: 1).each do |collaborator|
-          page.should have_selector('li', text: collaborator.name)
+        it "should list each collaborator" do
+          Collaborator.paginate(page: 1).each do |collaborator|
+            page.should have_selector('li', text: collaborator.name)
+          end
         end
       end
     end
@@ -52,6 +68,7 @@ describe "CollaboratorPages" do
 
       describe "as an admin collaborator" do
         let(:admin) { FactoryGirl.create(:admin) }
+
         before do
           sign_in admin
           visit collaborators_path
@@ -68,29 +85,47 @@ describe "CollaboratorPages" do
   end
 
   describe "new collaborator page" do
-    before { visit new_collaborator_path }
-    
-    let(:submit) { "Cadastrar" }
+    describe "as a non-admin user" do
+      let(:collaborator) { FactoryGirl.create(:collaborator) }
 
-    it { should have_selector('h1',    text: 'Cadastrar Colaborador') }
-    it { should have_selector('title', text: 'Cadastrar Colaborador') }
-
-    describe "with invalid information" do
-      it "should not create a collaborator" do
-        expect { click_button submit }.not_to change(Collaborator, :count)
+      before do
+        sign_in collaborator
+        get new_collaborator_path
       end
+      
+      specify { response.should redirect_to(root_path) }
     end
 
-    describe "with valid information" do
-      before do
-        fill_in "Name",         with: "Example User"
-        fill_in "Email",        with: "collaborator@example.com"
-        fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: "foobar"
+    describe "as an admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+
+      before (:each) do
+        sign_in admin
+        visit new_collaborator_path
+      end
+      
+      let(:submit) { "Cadastrar" }
+
+      it { should have_selector('h1',    text: 'Cadastrar Colaborador') }
+      it { should have_selector('title', text: 'Cadastrar Colaborador') }
+
+      describe "with invalid information" do
+        it "should not create a collaborator" do
+          expect { click_button submit }.not_to change(Collaborator, :count)
+        end
       end
 
-      it "should create a collaborator" do
-        expect { click_button submit }.to change(Collaborator, :count).by(1)
+      describe "with valid information" do
+        before do
+          fill_in "Name",         with: "Example User"
+          fill_in "Email",        with: "collaborator@example.com"
+          fill_in "Password",     with: "foobar"
+          fill_in "Confirmation", with: "foobar"
+        end
+
+        it "should create a collaborator" do
+          expect { click_button submit }.to change(Collaborator, :count).by(1)
+        end
       end
     end
   end

@@ -4,12 +4,12 @@
       <section>
         <%= render 'shared/collaborator_info' %>
       </section>
-      <section>
-        <%= render 'shared/partner_form' %>
-      </section>
     </aside>
     <div class="span8">
       <h3>Atividades Recentes</h3>
+      <% if admin_user %>
+        <div align="right"> <%= link_to "Cadastrar Colaborador", new_collaborator_path %> </div>
+      <% end %>
       <%= render 'shared/feed' %>
     </div>
   </div>
@@ -23,6 +23,6 @@
       <%= link_to 'Keepintouch.net.br', root_path %></a>.
     </h2>
 
-    <%= link_to "Log in now!", signin_path, class: "btn btn-large btn-primary" %>
+    <%= link_to "Sign in now!", signin_path, class: "btn btn-large btn-primary" %>
   </div>
 <% end %>

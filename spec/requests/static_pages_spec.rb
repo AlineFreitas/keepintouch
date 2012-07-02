@@ -13,10 +13,8 @@ describe "StaticPages" do
     visit root_path
     click_link "Sobre"
     page.should have_selector 'title', text: full_title('About')
-    click_link "FAQ"
-    page.should # fill in
     click_link "Início"
-    click_link "Log in now!"
+    click_link "Sign in now!"
     page.should have_selector 'title', text: full_title('')
     click_link "Keepintouch"
     page.should have_selector 'title', text: full_title('')

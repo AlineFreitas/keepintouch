@@ -11,6 +11,14 @@
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  admin           :boolean         default(FALSE)
+#  street          :string(255)
+#  number          :string(255)
+#  hood            :string(255)
+#  cep             :string(255)
+#  gender          :string(255)
+#  brithdate       :date
+#  fone1           :string(255)
+#  fone2           :string(255)
 #
 
 require 'spec_helper'

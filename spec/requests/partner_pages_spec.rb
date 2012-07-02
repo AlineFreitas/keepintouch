@@ -8,25 +8,26 @@ describe "Partner pages" do
   before { sign_in collaborator }
 
   describe "partner creation" do
-    before { visit root_path }
+    before { visit new_partner_path }
 
     describe "with invalid information" do
 
-      it "should not create a partner" do
-        expect { click_button "Post" }.should_not change(Partner, :count)
+      it "should not create a partner withou a name" do
+        expect { click_button "Cadastrar" }.should_not change(Partner, :count)
       end
 
       describe "error messages" do
-        before { click_button "Post" }
+        before { click_button "Cadastrar" }
         it { should have_content('error') } 
       end
     end
 
     describe "with valid information" do
 
-      before { fill_in 'partner_name', with: "Lorem ipsum" }
+      before { fill_in 'partner_name', with: "Carolina e uma menina" }
+
       it "should create a partner" do
-        expect { click_button "Post" }.should change(Partner, :count).by(1)
+        expect { click_button "Cadastrar" }.should change(Partner, :count).by(1)
       end
     end
   end

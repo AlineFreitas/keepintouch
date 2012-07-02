@@ -1,10 +1,15 @@
 <% provide(:title, 'Lista de Colaboradores') %>
-<h1>Todos Colaboradores</h1>
 
-<%= will_paginate %>
+<% if @collaborators.size ==1 %>
+  <h2>O único colaborador cadastrado é você mesmo!</h2>
+  <h3>Que tal <%= link_to "cadastrar", new_collaborator_path %> um novo?</h3>
+<% else %>
 
-<ul class="collaborators">
-  <%= render @collaborators %>
-</ul>
+  <h1>Todos Colaboradores</h1>
+  <%= will_paginate %>
+  <ul class="collaborators">
+    <%= render @collaborators %>
+  </ul>
+  <%= will_paginate %>
 
-<%= will_paginate %>
+<% end %>

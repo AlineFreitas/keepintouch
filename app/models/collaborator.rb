@@ -10,10 +10,19 @@
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  admin           :boolean         default(FALSE)
+#  street          :string(255)
+#  number          :string(255)
+#  hood            :string(255)
+#  cep             :string(255)
+#  gender          :string(255)
+#  brithdate       :date
+#  fone1           :string(255)
+#  fone2           :string(255)
 #
 
 class Collaborator < ActiveRecord::Base
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :street, :number, :hood, :birth_date, :gender,
+                  :cep, :fone1, :fone2, :password, :password_confirmation
 
   has_many :partners, dependent: :destroy
 
@@ -33,7 +42,6 @@ class Collaborator < ActiveRecord::Base
 
 
   def feed
-    # This is preliminary. See "Following users" for the full implementation.
     Partner.where("collaborator_id = ?", id)
   end
 

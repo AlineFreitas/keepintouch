@@ -24,8 +24,8 @@
       <%= f.label "CEP" %>
       <%= f.text_field :cep %>
       
-      <%= f.label "gênero" %>
-      <%= f.text_field :gender %>
+      <%= f.label "Gênero" %>
+      <%= f.select :gender, options_for_select(["Homem", "Mulher"]) %>
       
       <%= f.label "Data de nascimento" %>
       <%= date_select :partner, :birth_date, :include_blank => true,

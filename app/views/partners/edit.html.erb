@@ -24,7 +24,7 @@
       <%= f.text_field :cep %>
       
       <%= f.label :gender %>
-      <%= f.text_field :gender %>
+      <%= f.select :gender, options_for_select(["Homem", "Mulher"]) %>
       
       <%= f.label :birth_date %>
       <%= date_select :partner, :birth_date, :include_blank => true,

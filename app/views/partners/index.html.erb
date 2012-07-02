@@ -1,0 +1,14 @@
+<% provide(:title, 'Lista de Parceiros') %>
+<% if @partners.empty? %>
+  <h2>Ainda não existem parceiros cadastrados.</h2>
+  <h3>Que tal <%= link_to "cadastrar", new_partner_path %> o primeiro?</h3>
+<% else %>
+  <h1>Todos Parceiros</h1>
+  <%= will_paginate %>
+
+  <ul class="partners">
+    <%= render @partners %>
+  </ul>
+
+  <%= will_paginate %>
+<% end %>

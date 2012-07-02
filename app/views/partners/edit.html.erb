@@ -1,0 +1,43 @@
+<% provide(:title, "Editar Parceiro") %> 
+<h1>Editar dados de Parceiro</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@partner) do |f| %>
+      <%= render 'shared/error_messages', object: f.object  %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :street %>
+      <%= f.text_field :street %>
+      
+      <%= f.label :number %>
+      <%= f.text_field :number %>
+      
+      <%= f.label :hood %>
+      <%= f.text_field :hood %>
+      
+      <%= f.label :cep %>
+      <%= f.text_field :cep %>
+      
+      <%= f.label :gender %>
+      <%= f.text_field :gender %>
+      
+      <%= f.label :birth_date %>
+      <%= date_select :partner, :birth_date, :include_blank => true,
+                      :start_year => Date.current.year-116,
+                      :end_year => 1995 %>
+      
+      <%= f.label 'Telefone 1' %>
+      <%= f.text_field :fone1 %>
+      
+      <%= f.label 'Telefone 2' %>
+      <%= f.text_field :fone2 %>
+
+      <%= f.submit "Atualizar", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

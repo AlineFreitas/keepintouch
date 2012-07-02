@@ -1,0 +1,23 @@
+<% provide(:title, @partner.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @partner.name %>
+      </h1>
+      <small>Criado(a) por <%= link_to @partner.collaborator.name, @partner.collaborator %>
+    </section>
+  </aside>
+  <div align="right"><%= link_to 'Editar dados', edit_partner_path(@partner) %></div>
+  <div class="span8">
+      <%= @partner.email %>
+      <%= @partner.street %>
+      <%= @partner.number %>
+      <%= @partner.hood %>
+      <%= @partner.cep %>
+      <%= @partner.gender %>
+      <%= @partner.birth_date %>
+      <%= @partner.fone1 %>
+      <%= @partner.fone2 %>
+  </div>
+</div>

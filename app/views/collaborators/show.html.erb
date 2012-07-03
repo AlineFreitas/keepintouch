@@ -7,14 +7,21 @@
       </h1>
     </section>
   </aside>
+
   <div class="span8">
-    <h1><%= @collaborator.name %></h1>
+    <h1><%= @collaborator.name %> </h1>
+      <% if current_user? @collaborator %>
+        <p align="right"><small>
+            <%= link_to "Editar Perfil", edit_collaborator_path(@collaborator) %>
+        </small></p>
+      <% end %>
+    <p align="right"><small><%= @collaborator.gender %>, nascido(a) em 
+              <%= @collaborator.birth_date %>.</small></p>
 
     <h2>Perfil</h2>
-    Gênero <%= @collaborator.gender %>, nascido(a) em <%= @collaborator.birth_date %>.
 
     <h3>Informações de Contato</h3>
-    <p>Endereço: <%= @collaborator.street %>, número <%= @collaborator.number %>
+    <p>Endereço: <%= @collaborator.street %>, <%= @collaborator.number %>
     Bairro: <%= @collaborator.hood %>, CEP: <%= @collaborator.cep %></p>
 
     <p>Telefone 1: <%= @collaborator.fone1 %><br/>
@@ -26,11 +33,13 @@
     
     <hr/>
     <% if @collaborator.partners.any? %>
-      <h3>Colaboradores (<%= @collaborator.partners.count %>)</h3>
+      <h3>Parceiros (<%= @collaborator.partners.count %>)</h3>
       <ol class="partners">
         <%= render @partners %>
       </ol>
       <%= will_paginate @partners %>
+    <% else %>
+      <h3>Esse colaborador ainda não cadastrou nenhum parceiro!</h3>
     <% end %>
   </div>
 </div>

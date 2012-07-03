@@ -41,6 +41,7 @@ class Collaborator < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
+  default_scope order: 'collaborators.name ASC'
 
   def feed
     Partner.where("collaborator_id = ?", id)

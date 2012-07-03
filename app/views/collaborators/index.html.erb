@@ -6,6 +6,7 @@
 <% else %>
 
   <h1>Todos Colaboradores</h1>
+  <p align="right"><%= link_to "Novo Colaborador", new_collaborator_path %></p>
   <%= will_paginate %>
   <ul class="collaborators">
     <%= render @collaborators %>

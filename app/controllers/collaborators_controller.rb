@@ -1,6 +1,6 @@
 class CollaboratorsController < ApplicationController
   before_filter :signed_in_user
-  before_filter :correct_user, only: [:edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: [:index, :destroy, :create, :new]
 
   def index

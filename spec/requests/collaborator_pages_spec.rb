@@ -117,10 +117,11 @@ describe "CollaboratorPages" do
 
       describe "with valid information" do
         before do
-          fill_in "Name",         with: "Example User"
-          fill_in "Email",        with: "collaborator@example.com"
-          fill_in "Password",     with: "foobar"
-          fill_in "Confirmation", with: "foobar"
+          fill_in "collaborator[name]",         with: "Example User"
+          fill_in "collaborator[email]",        with: "collaborator@example.com"
+          fill_in "collaborator[fone1]",                 with: "11111111"
+          fill_in "collaborator[password]",              with: "foobar"
+          fill_in "collaborator[password_confirmation]", with: "foobar"
         end
 
         it "should create a collaborator" do
@@ -141,11 +142,11 @@ describe "CollaboratorPages" do
     describe "page" do
       it { should have_selector('h1',    text: "Update your profile") }
       it { should have_selector('title', text: "Editar dados Colaborador") }
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
+      it { should have_link('alterar gravatar', href: 'http://gravatar.com/emails') }
     end
 
     describe "with invalid information" do
-      before { click_button "Salvar Mudanças" }
+      before { click_button "Salvar" }
 
       it { should have_content('error') }
     end
@@ -154,11 +155,11 @@ describe "CollaboratorPages" do
       let(:new_name)  { "New Name" }
       let(:new_email) { "new@example.com" }
       before do
-        fill_in "Name",             with: new_name
-        fill_in "Email",            with: new_email
-        fill_in "Password",         with: collaborator.password
-        fill_in "Confirm Password", with: collaborator.password
-        click_button "Salvar Mudanças"
+        fill_in "collaborator[name]",             with: new_name
+        fill_in "collaborator[email]",            with: new_email
+        fill_in "collaborator[password]",         with: collaborator.password
+        fill_in "collaborator[password_confirmation]", with: collaborator.password
+        click_button "Salvar"
       end
 
       it { should have_selector('title', text: new_name) }

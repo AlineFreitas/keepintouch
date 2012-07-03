@@ -1,8 +1,9 @@
 <li>
-  <span class="name"><%= partner.name %></span>
+  <span class="name"><%= link_to partner.name, partner %>
   <% if current_user?(partner.collaborator) %>
-    <%= link_to "delete", partner, method: :delete,
-                                     data: { confirm: "You sure?" },
+    | <%= link_to "delete", partner, method: :delete,
+                                     data: { confirm: "Tem certeza?" },
                                      title: partner.collaborator.name %>
   <% end %>
+  </span>
 </li>

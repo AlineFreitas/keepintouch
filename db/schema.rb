@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20120701213529) do
     t.string   "hood"
     t.string   "cep"
     t.string   "gender"
-    t.date     "brithdate"
+    t.date     "birth_date"
     t.string   "fone1"
     t.string   "fone2"
   end

@@ -6,28 +6,28 @@
     <%= form_for(@partner) do |f| %>
       <%= render 'shared/error_messages', object: f.object  %>
 
-      <%= f.label :name %>
+      <%= f.label "Nome" %>
       <%= f.text_field :name %>
 
-      <%= f.label :email %>
+      <%= f.label "E-mail" %>
       <%= f.text_field :email %>
 
-      <%= f.label :street %>
+      <%= f.label "Rua/Avenida" %>
       <%= f.text_field :street %>
       
-      <%= f.label :number %>
+      <%= f.label "Número" %>
       <%= f.text_field :number %>
       
-      <%= f.label :hood %>
+      <%= f.label "Bairro" %>
       <%= f.text_field :hood %>
       
-      <%= f.label :cep %>
+      <%= f.label "CEP" %>
       <%= f.text_field :cep %>
       
-      <%= f.label :gender %>
+      <%= f.label "Gênero" %>
       <%= f.select :gender, options_for_select(["Homem", "Mulher"]) %>
       
-      <%= f.label :birth_date %>
+      <%= f.label "Data de nascimento" %>
       <%= date_select :partner, :birth_date, :include_blank => true,
                       :start_year => Date.current.year-116,
                       :end_year => 1995 %>

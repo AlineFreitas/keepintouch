@@ -4,11 +4,27 @@
     <section>
       <h1>
         <%= gravatar_for @collaborator %>
-        <%= @collaborator.name %>
       </h1>
     </section>
   </aside>
   <div class="span8">
+    <h1><%= @collaborator.name %></h1>
+
+    <h2>Perfil</h2>
+    Gênero <%= @collaborator.gender %>, nascido(a) em <%= @collaborator.birth_date %>.
+
+    <h3>Informações de Contato</h3>
+    <p>Endereço: <%= @collaborator.street %>, número <%= @collaborator.number %>
+    Bairro: <%= @collaborator.hood %>, CEP: <%= @collaborator.cep %></p>
+
+    <p>Telefone 1: <%= @collaborator.fone1 %><br/>
+    <% if @collaborator.fone2? %>
+      Telefone 2: <%= @collaborator.fone2 %>
+    <% end %>
+    </p>
+    <p>Email: <%= @collaborator.email %></p>
+    
+    <hr/>
     <% if @collaborator.partners.any? %>
       <h3>Colaboradores (<%= @collaborator.partners.count %>)</h3>
       <ol class="partners">

@@ -27,6 +27,7 @@ describe Collaborator do
   before do
     @collaborator = Collaborator.new(name: "Example collaborator",
                                      email: "collaborator@example.com",
+                                     fone1: "11111111",
                                      password: "foobar",
                                      password_confirmation: "foobar")
   end
@@ -35,6 +36,13 @@ describe Collaborator do
 
   it { should respond_to(:name) }
   it { should respond_to(:email) }
+  it { should respond_to(:street) }
+  it { should respond_to(:number) }
+  it { should respond_to(:hood) }
+  it { should respond_to(:cep) }
+  it { should respond_to(:gender) }
+  it { should respond_to(:birth_date) }
+  
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }

@@ -5,15 +5,16 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Início", root_path %></li>
-          <li><%= link_to "Sobre Site",
-                          about_path(:anchor => "about-site") %></li>
-
+          
           <% if signed_in? %>
             <% if admin_user %>
-              <li> <%= link_to "Parceiros", partners_path %> </li>
+              <li><%= link_to "Colaboradores", collaborators_path %></li>
             <% end %>
+            
+            <li> <%= link_to "Parceiros", partners_path %> </li>
 
-            <li><%= link_to "Colaboradores", collaborators_path %></li>
+            <li><%= link_to "Sobre Site",
+                          about_path(:anchor => "about-site") %></li>
 
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -12,7 +12,7 @@
       <%= f.label "E-mail" %>
       <%= f.text_field :email %>
 
-      <%= f.label "Rua/Avenida" %>
+      <%= f.label "Logradouro" %>
       <%= f.text_field :street %>
       
       <%= f.label "Número" %>
@@ -22,15 +22,14 @@
       <%= f.text_field :hood %>
       
       <%= f.label "CEP" %>
-      <%= f.text_field :cep %>
+      <%= f.text_field :cep %> <small><a href="http://www.buscacep.correios.com
+                                               .br/">Procurar CEP</a></small>
       
       <%= f.label "Gênero" %>
       <%= f.select :gender, options_for_select(["Homem", "Mulher"]) %>
       
       <%= f.label "Data de nascimento" %>
-      <%= date_select :partner, :birth_date, :include_blank => true,
-                      :start_year => Date.current.year-116,
-                      :end_year => 1995 %>
+      <%= f.text_field :birth_date %>
       
       <%= f.label 'Telefone 1' %>
       <%= f.text_field :fone1 %>

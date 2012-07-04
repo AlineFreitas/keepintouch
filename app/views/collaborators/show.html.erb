@@ -6,6 +6,11 @@
         <%= gravatar_for @collaborator %>
       </h1>
     </section>
+    <section>
+      <% @other_collaborators.each do |oc| %>
+        <p><%= oc.name %> (<%=oc.partners.count %>)</p>
+      <% end %>
+    </section>
   </aside>
 
   <div class="span8">
@@ -15,14 +20,19 @@
             <%= link_to "Editar Perfil", edit_collaborator_path(@collaborator) %>
         </small></p>
       <% end %>
-    <p align="right"><small><%= @collaborator.gender %>, nascido(a) em 
-              <%= @collaborator.birth_date %>.</small></p>
+    <p align="right"><small><%= @collaborator.gender %>
+    <% if @collaborator.birth_date? %>
+    ,nascido(a) em 
+              <%= @collaborator.birth_date.day %>/
+              <%= @collaborator.birth_date.month %>/
+              <%= @collaborator.birth_date.year %>.</small></p>
+    <% end %>
 
     <h2>Perfil</h2>
 
     <h3>Informações de Contato</h3>
-    <p>Endereço: <%= @collaborator.street %>, <%= @collaborator.number %>
-    Bairro: <%= @collaborator.hood %>, CEP: <%= @collaborator.cep %></p>
+    <p>Endereço: <%= @collaborator.street %>, <%= @collaborator.number %><br/>
+    <%= @collaborator.hood %>, CEP: <%= @collaborator.cep %></p>
 
     <p>Telefone 1: <%= @collaborator.fone1 %><br/>
     <% if @collaborator.fone2? %>

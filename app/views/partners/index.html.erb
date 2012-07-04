@@ -4,14 +4,18 @@
 
   <h2>Ainda não existem parceiros cadastrados.</h2>
   <h3>Que tal <%= link_to "cadastrar", new_partner_path %> o primeiro?</h3>
+
 <% else %>
+  <% if current_user.admin? %>
+    <h1>Todos Parceiros</h1>
+  <% else %>
+    <h1>Parceiros que você cadastrou</h1>
+  <% end %>
+    <p align="right"><%= link_to "Novo Parceiro", new_partner_path %></p>
 
-  <h1>Todos Parceiros</h1>
-  <p align="right"><%= link_to "Novo Parceiro", new_partner_path %></p>
-
-  <%= will_paginate %>
-  <ul class="partners">
-    <%= render @partners %>
-  </ul>
-  <%= will_paginate %>
+    <%= will_paginate %>
+    <ul class="partners">
+      <%= render @partners %>
+    </ul>
+    <%= will_paginate %>
 <% end %>

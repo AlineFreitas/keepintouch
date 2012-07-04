@@ -43,4 +43,29 @@ describe "Partner pages" do
       end
     end
   end
+
+#  describe "index page" do
+#    let(:collaborator) { FactoryGirl.create(:collaborator) }
+#    let(:admin) { FactoryGirl.create(:admin) }
+
+#    let(:partner_admin) { FactoryGirl.create(:partner, collaborator: admin) }
+#    let(:partner_collaborator) { FactoryGirl.create(:partner,
+#                                                    collaborator: collaborator)}
+
+#    describe "as an admin user" do
+#      before do
+#        sign_in admin
+#        visit partners_path
+#      end
+
+#      describe "should render all partners" do
+#        it { should have_selector('span', text: partner_admin.name) }
+#        it { should have_selector('span', text: partner_collaborator.name) }
+#      end
+#    end
+#    
+#    describe "as a non-admin user" do
+#      
+#    end
+#  end
 end

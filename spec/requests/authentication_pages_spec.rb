@@ -32,11 +32,12 @@ describe "AuthenticationPages" do
 
       it { should have_selector('title', text: collaborator.name) }
       
-      it { should have_link('Colaboradores',    href: collaborators_path) }
+      it { should have_link('Parceiros',    href: partners_path) }
       it { should have_link('Profile', href: collaborator_path(collaborator)) }
       it { should have_link('Settings', href: edit_collaborator_path(collaborator)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
+      it { should_not have_link('Colaboradores', href: collaborators_path) }
       
       describe "followed by signout" do
         before { click_link "Sign out" }

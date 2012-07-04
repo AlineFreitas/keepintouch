@@ -10,6 +10,7 @@ class CollaboratorsController < ApplicationController
   def show
     @collaborator = Collaborator.find(params[:id])
     @partners = @collaborator.partners.paginate(page: params[:page])
+    @other_collaborators = Collaborator.find_by_sql('select * from collaborators where collaborators.id <>' + @collaborator.id.to_s + ' order by collaborators.name ASC')
   end
 
   def new

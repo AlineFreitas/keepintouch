@@ -1,10 +1,14 @@
 class PartnersController < ApplicationController
-  before_filter :signed_in_user, only: [:new, :create, :destroy]
+  before_filter :signed_in_user
   before_filter :correct_user,   only: [:destroy]
-  before_filter :admin_user, only: :index
 
   def index
-    @partners = Partner.paginate(page: params[:page])
+    if current_user.admin?
+      @partners = Partner.paginate(page: params[:page])
+    else
+      @partners = Partner.where("collaborator_id = ?", current_user.id).
+                                                  paginate(page: params[:page])
+    end
   end
 
   def new

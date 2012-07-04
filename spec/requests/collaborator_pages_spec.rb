@@ -4,6 +4,31 @@ require 'spec_helper'
 describe "CollaboratorPages" do
   subject { page }
 
+  describe "menu-bar helper links" do
+    
+    describe "as a non-admin user" do
+      let(:collaborator) { FactoryGirl.create(:collaborator) }
+      before do 
+        sign_in collaborator
+        visit root_path
+      end
+      
+      it { should have_link('Parceiros') }
+      it { should_not have_link('Colaboradores') }
+    end
+
+    describe "as an admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+      before do 
+        sign_in admin
+        visit root_path
+      end
+      
+      it { should have_link('Parceiros') }
+      it { should have_link('Colaboradores') }
+    end
+  end
+
   describe "profile page" do
     let(:collaborator) { FactoryGirl.create(:collaborator) }
     let!(:partner1) { FactoryGirl.create(:partner, collaborator: collaborator, name: "Foo") }

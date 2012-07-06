@@ -11,51 +11,61 @@
     <%= form_for(@collaborator) do |f| %>
       <%= render 'shared/error_messages', object: f.object  %>
 
-      <%= f.label "Nome" %>
-      <%= f.text_field :name %>
+      <small><p align="right"> <span style="color: red;">vermelho</span> : Campos obrigatórios</p><br/></small>
 
-      <%= f.label "E-mail" %>
-      <%= f.text_field :email %>
+      <div class="personal-info">
+          <h2>Dados Pessoais</h2>
+          <label>Nome <span style="color: red;">*</span></label>
+          <%= f.text_field :name %>
 
-      <%= f.label "Rua/Avenida" %>
-      <%= f.text_field :street %>
+          <label>Gênero <span style="color: red;">*</span></label>
+          <%= f.select :gender, options_for_select(["Homem", "Mulher"]) %>
+          
+          <label>Data de Nascimento (<span style="color: red;">dd/mm/aaaa</span>)</label>
+          <%= f.text_field :birth_date, :value => (@collaborator.birth_date.blank? ? '' : @collaborator.birth_date.strftime('%d/%m/%Y')) %>
+      </div>
+
+      <div class="contact-info">
+          <h2>Contato</h2>
+          <label>E-mail <span style="color: red;">*</span></label>
+          <%= f.text_field :email %>
       
-      <%= f.label "Número" %>
-      <%= f.text_field :number %>
+          <label>Telefone 1 <span style="color: red;">*</span></label>
+          <%= f.text_field :fone1 %>
+          
+          <%= f.label 'Telefone 2' %>
+          <%= f.text_field :fone2 %>
+
+          <h2>Endereço</h2>
+          <label>Logradouro <span style="color: red;">*</span></label>
+          <%= f.text_field :street %>
       
-      <%= f.label "Bairro" %>
-      <%= f.text_field :hood %>
-      
-      <%= f.label "CEP" %>
-      <%= f.text_field :cep %>
-      
-      <%= f.label "gênero" %>
-      <%= f.select :gender, options_for_select(["Homem", "Mulher"]) %>
-      
-      <%= f.label "Data de nascimento" %>
-      <%= date_select :partner, :birth_date, :include_blank => true,
-                      :start_year => Date.current.year-116,
-                      :end_year => 1995 %>
-      
-      <%= f.label 'Telefone 1' %>
-      <%= f.text_field :fone1 %>
-      
-      <%= f.label 'Telefone 2' %>
-      <%= f.text_field :fone2 %>
+          <label>Número <span style="color: red;">*</span></label>
+          <%= f.text_field :number %>
+
+          <label>Bairro <span style="color: red;">*</span></label>
+          <%= f.text_field :hood %>
+          
+          <label>CEP (Formato: <span style="color: red;">28035581</span>)
+          | <small><a href="http://www.buscacep.correios.com.br/" target="_blank">
+            Procurar CEP
+            </small></a>
+          </label>
+          <%= f.text_field :cep %>
+          
+      </div>
 
       <br/><br/>
-      <h3>Verificação de segurança</h3>
-      <hr/>
+      <h3 align="center">Verificação de segurança</h3>
+      <br/>
 
-      <%= f.label :password %>
+      <label>Senha <span style="color: red;">*</span></label>
       <%= f.password_field :password %>
 
-      <%= f.label :password_confirmation, "Confirm Password" %>
+      <label>Confirmação <span style="color: red;">*</span></label>
       <%= f.password_field :password_confirmation %>
 
       <%= f.submit "Salvar", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>
-
-

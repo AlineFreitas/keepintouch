@@ -20,6 +20,12 @@ $grayMediumLight: #eaeaea;
   @include box_sizing;
 }
 
+/*body .custom {
+ background-image: url("http://themes.googleusercontent.com/image?id=0BwVBOzw_-hbMODkzNDVjYTEtYzNiYi00YjRkLThkZjAtOGM0MGI5NzRhZjM4")
+ background-color: rgb(136, 34, 34);
+}
+*/
+
 /* universal */
 
 html {
@@ -213,4 +219,12 @@ aside {
     height: 100px;
     margin-bottom: 5px;
   }
+}
+
+
+/* Forms helpers */
+span6 offset3 span .obrigatory{
+  color: red;
+  font-size: 14px;
+  float: right;
 }

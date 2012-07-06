@@ -2,13 +2,13 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
+      <% if @other_collaborators.empty? %>
+        <h3>Nenhum outro colaborador cadastrado!</h3>
+      <% else %>
         <%= gravatar_for @collaborator %>
-      </h1>
-    </section>
-    <section>
-      <% @other_collaborators.each do |oc| %>
-        <p><%= oc.name %> (<%=oc.partners.count %>)</p>
+        <% @other_collaborators.each do |oc| %>
+          <p><%= oc.name %> (<%=oc.partners.count %>)</p>
+        <% end %>
       <% end %>
     </section>
   </aside>
@@ -20,13 +20,8 @@
             <%= link_to "Editar Perfil", edit_collaborator_path(@collaborator) %>
         </small></p>
       <% end %>
-    <p align="right"><small><%= @collaborator.gender %>
-    <% if @collaborator.birth_date? %>
-    ,nascido(a) em 
-              <%= @collaborator.birth_date.day %>/
-              <%= @collaborator.birth_date.month %>/
-              <%= @collaborator.birth_date.year %>.</small></p>
-    <% end %>
+    <p align="right"><small><%= @collaborator.gender %>, nascido(a) em 
+              <%= @collaborator.birth_date.day %>/<%= @collaborator.birth_date.month %>/<%= @collaborator.birth_date.year %>.</small></p>
 
     <h2>Perfil</h2>
 

@@ -31,17 +31,24 @@ class Collaborator < ActiveRecord::Base
   before_save { |collaborator| collaborator.email = email.downcase }
   before_save :create_remember_token
 
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  #VALID_OCIDENTAL_DATE_REGED = /(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$/
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
+  VALID_OCIDENTAL_DATE_REGEX = /(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[12][0-9]{3}$/
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true,
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+  validates :birth_date, presence: true,
+            format: { with: VALID_OCIDENTAL_DATE_REGEX }
   validates :fone1, presence: true
+  validates :street, presence: true
+  validates :number, presence: true
+  validates :hood, presence: true
+  validates :cep, presence: true, numericality: true, length: {is: 8}
+
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
-  #validates :birth_date, :format => { :with =>  }
+
 
   default_scope order: 'collaborators.name ASC'
 

@@ -23,7 +23,6 @@ class PartnersController < ApplicationController
       flash.now[:success] = "Parceiro criado!"
       redirect_to @partner
     else
-      @feed_items = []
       render 'partners/new'
     end
   end

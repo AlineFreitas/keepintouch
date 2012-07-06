@@ -30,7 +30,7 @@ class Partner < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, format: { with: VALID_EMAIL_REGEX }
-  validates :birth_date, presence: true,
+  validates :birth_date,
             :format => { :with => VALID_OCIDENTAL_DATE_REGEX }
   validates :collaborator_id, presence: true
   validates :street, presence: true

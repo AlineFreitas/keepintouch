@@ -22,10 +22,10 @@
 
       <div class="contact-info">
           <h2>Contato</h2>
-          <label>E-mail <span style="color: red;">*</span></label>
+          <%= f.label :email %>
           <%= f.text_field :email %>
       
-          <%= f.label 'Telefone 1' %>
+          <label>Telefone 1 <span style="color: red;">*</span></label>
           <%= f.text_field :fone1 %>
           
           <%= f.label 'Telefone 2' %>

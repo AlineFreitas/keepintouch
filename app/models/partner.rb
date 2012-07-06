@@ -29,10 +29,12 @@ class Partner < ActiveRecord::Base
   VALID_OCIDENTAL_DATE_REGEX = /(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/[12][0-9]{3}$/
 
   validates :name, presence: true, length: { maximum: 50 }
-  validates :email, format: { with: VALID_EMAIL_REGEX }
+  validates :email, format: { with: VALID_EMAIL_REGEX },
+            :allow_blank => true
   validates :birth_date,
             :format => { :with => VALID_OCIDENTAL_DATE_REGEX }
   validates :collaborator_id, presence: true
+  validates :fone1, presence: true
   validates :street, presence: true
   validates :number, presence: true
   validates :hood, presence: true
